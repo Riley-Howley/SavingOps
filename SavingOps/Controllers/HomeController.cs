@@ -15,12 +15,17 @@ namespace SavingOps.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated) {
+                return RedirectToAction("Dashboard");
+            } else
+            {
+                return View();
+            }            
         }
 
-        public IActionResult Privacy()
+        public IActionResult Dashboard()
         {
-            return View();
+            return View();  
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

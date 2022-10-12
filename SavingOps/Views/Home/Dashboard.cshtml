@@ -1,0 +1,78 @@
+﻿
+<div class="dashboard-section">
+    <div class="dash-head">
+    <div class="head-left">
+        <div class="left-row">
+            <h1>Dashboard</h1>
+            <p>Personal Savings and Updates</p>
+        </div>
+    </div>
+</div>
+    <div class="dash-row d-flex justify-content-between mx-auto">
+        <a asp-controller="Savings" asp-action="Index">
+            <div class="saving-con">
+            <h2>Savings Goal</h2>
+            <!--Circle Progress-->
+            <h2>$5000/5000</h2>
+        </div>
+        </a>
+
+        <a asp-controller="Rents" asp-action="Index">
+            <div class="saving-con">
+            <h2>Rent Paid</h2>
+            <h2>$12,160</h2>
+            <p>Rent paid by $320.00 per week</p>
+        </div>
+        </a>
+
+        <a asp-controller="Fuels" asp-action="Index">
+            <div class="saving-con">
+            <h2>Fuel Paid</h2>
+            <h2>$12,160</h2>
+            <p>Amount spent towards fuel</p>
+        </div>
+        </a>
+    </div>
+    <div class="tabs d-flex justify-content-around mx-auto pb-5">
+        <i class="fa-solid fa-house" onclick="openNav('Home')"></i>
+        <i class="fa-solid fa-gear" onclick="openNav('Settings')"></i>
+        <i class="fa-solid fa-right-from-bracket" onclick="openNav('Logout')"></i>
+    </div>
+    <hr />
+    <div class="nav-link middle-body" id="Home">
+            <div class="graph-col d-flex flex-column mx-auto">
+                <div class="graph-title">
+                <p>Total amount spent on junk per month</p>
+                <h2>$1500</h2>
+            </div>
+            <div class="graph">
+                <canvas id="myChart" style="width:90%;max-width:80%"></canvas>
+            </div>           
+            </div>     
+                <div class="trac-right">
+                    <div class="trac-right-row">
+                        <div class="trac-col">
+                            <h2>Bills</h2>
+                            <p>Bills that have been received and awaiting payment</p>
+                        </div>                
+                    </div>
+                    <div class="bill-con">
+                        <table class="bill-table">
+                            <tr>
+                                <td>Internet Bill</td>
+                                <td>Received</td>
+                                <td>$99</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+    </div>
+
+    <div class="nav-link"  id="Settings" style="display:none">
+        <h1>Settings</h1>
+    </div>
+
+    <div class="nav-link" id="Logout" style="display:none">
+        <h1>Logout</h1>
+    </div>
+</div>

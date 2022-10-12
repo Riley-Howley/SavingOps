@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SavingOps.Data;
 
@@ -11,9 +12,10 @@ using SavingOps.Data;
 namespace SavingOps.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221011004104_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,102 +224,6 @@ namespace SavingOps.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("SavingOps.Models.AccountSettings", b =>
-                {
-                    b.Property<int>("AccountSettingsID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountSettingsID"), 1L, 1);
-
-                    b.Property<double>("RentPrice")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SavingsGoal")
-                        .HasColumnType("float");
-
-                    b.HasKey("AccountSettingsID");
-
-                    b.ToTable("AccountSettings");
-                });
-
-            modelBuilder.Entity("SavingOps.Models.Bill", b =>
-                {
-                    b.Property<int>("BillID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillID"), 1L, 1);
-
-                    b.Property<string>("BillTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.HasKey("BillID");
-
-                    b.ToTable("Bill");
-                });
-
-            modelBuilder.Entity("SavingOps.Models.Fuel", b =>
-                {
-                    b.Property<int>("FuelID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuelID"), 1L, 1);
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("FuelSubmitted")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("FuelID");
-
-                    b.ToTable("Fuel");
-                });
-
-            modelBuilder.Entity("SavingOps.Models.Rent", b =>
-                {
-                    b.Property<int>("RentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentID"), 1L, 1);
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("DateSubmitted")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("RentID");
-
-                    b.ToTable("Rent");
-                });
-
-            modelBuilder.Entity("SavingOps.Models.Saving", b =>
-                {
-                    b.Property<int>("SavingID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SavingID"), 1L, 1);
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("DateSubmitted")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("SavingID");
-
-                    b.ToTable("Saving");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
