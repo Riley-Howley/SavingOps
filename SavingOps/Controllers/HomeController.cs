@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SavingOps.Models;
 using System.Diagnostics;
 
@@ -23,6 +24,7 @@ namespace SavingOps.Controllers
             }            
         }
 
+        [Authorize]
         public IActionResult Dashboard()
         {
             return View();  

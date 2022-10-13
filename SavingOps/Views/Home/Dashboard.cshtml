@@ -1,4 +1,8 @@
-﻿
+﻿@model SavingOps.Models.ListModel;
+
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 <div class="dashboard-section">
     <div class="dash-head">
     <div class="head-left">
@@ -13,10 +17,18 @@
             <div class="saving-con">
             <h2>Savings Goal</h2>
             <!--Circle Progress-->
-            <h2>$5000/5000</h2>
+                @{
+                    if (Model.AccountList == null)
+                    {
+                        <h2>Not Set</h2>
+                    } else
+                    {
+                        <h2>Set</h2>
+                    }
+                }
         </div>
         </a>
-
+        s
         <a asp-controller="Rents" asp-action="Index">
             <div class="saving-con">
             <h2>Rent Paid</h2>
@@ -52,7 +64,10 @@
                 <div class="trac-right">
                     <div class="trac-right-row">
                         <div class="trac-col">
-                            <h2>Bills</h2>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2>Bills</h2>
+                                <i class="fa-solid fa-plus fs-5"></i>
+                            </div>
                             <p>Bills that have been received and awaiting payment</p>
                         </div>                
                     </div>
@@ -68,11 +83,46 @@
                 </div>
     </div>
 
-    <div class="nav-link"  id="Settings" style="display:none">
+    <div class="nav-link settings"  id="Settings" style="display:none">
         <h1>Settings</h1>
+        <h4>Price Settings</h4>
+
+        <div class="price-settings">
+            <div class="form-col">
+                <label>Rent Price</label>
+                <input type="text">
+            </div>
+            <div class="form-col">
+                <label>Savings Goal</label>
+                <input type="text">
+            </div>
+        </div>
+
+        <h4>Account Settings</h4>
+        <div class="price-settings">
+            <div class="form-col-acc">
+            <label>Email</label>
+            <input type="text">
+        </div>
+        <div class="form-col-acc">
+            <label>Password</label>
+            <input type="password">
+        </div>
+        </div>
+
+        <h4 class="pb-5">Storage Settings</h4>
+        <div class="set-row">
+            <button>Clear History</button>
+            <button>Clear Savings</button>
+            <button>Clear Bill</button>
+        </div>
     </div>
 
-    <div class="nav-link" id="Logout" style="display:none">
+    <div class="nav-link logout-section" id="Logout" style="display:none">
         <h1>Logout</h1>
+        <p>Are you sure you want to logout</p>
+        <form method="post" asp-controller="Account" asp-action="Logout" >
+            <button type="submit" value="Logout">Logout</button>
+        </form>
     </div>
 </div>

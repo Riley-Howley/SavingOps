@@ -178,6 +178,11 @@ a {
     border-radius: 25px;
     box-shadow: 1px 10px 10px 1px #bfbebe;
     text-align: center;
+    transition: all 1s ease;
+}
+
+.saving-con:hover {
+    transform: scale(1.1) translateY(-25px);
 }
 
 .tabs {
@@ -233,3 +238,84 @@ a {
     border-radius: 15px;
     margin-top: 20px;
 }
+
+/*Logout Section*/
+
+.logout-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-section button {
+    background-color:orange;
+    padding: 25px 50px;
+    color: white;
+    font-weight:bold;
+    border: none;
+    border-radius: 15px;
+    transition: all 1s ease;
+}
+
+.logout-section button:hover {
+    transform: scale(1.1);
+}
+
+/*Settings*/
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings h1 {
+    font-size: 64px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.settings h4 {
+    font-size: 32px;
+    margin: 0;
+    font-weight: 200;
+}
+
+.price-settings {
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+}
+
+.settings .form-col input {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.settings .form-col-acc input {
+    padding: 10px;
+    display: flex;
+    font-size: 20px;
+}
+
+.form-col-acc label {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px 0px;
+}
+
+.set-row {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 100px;
+}
+
+    .set-row button {
+        background-color: red;
+        color: white;
+        font-size: 20px;
+        padding: 8px 18px;
+    }
