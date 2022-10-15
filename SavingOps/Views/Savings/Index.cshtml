@@ -1,41 +1,33 @@
-﻿@model IEnumerable<SavingOps.Models.Saving>
+﻿@model SavingOps.Models.Saving
 
-@{
-    ViewData["Title"] = "Index";
+<div class="savings-section">
+    <h1 class="display-4 fw-bold">Savings</h1>
+    <div class="d-flex justify-content-between align-content-center">
+        <p>Personal savings towards goal</p>
+        <a asp-controller="Home" asp-area="Index" class="display-5 fw-bold text-blue">Back to Home</a>
+    </div>
+
+    <h2>Add To Savings Goal</h2>
+    <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
+            <div class="form-col pull">            
+                <input asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <div id="partialZone">
+
+        </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('#partialZone').load("/Savings/SavingListPartial")
+    </script>
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateSubmitted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateSubmitted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SavingID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SavingID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SavingID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

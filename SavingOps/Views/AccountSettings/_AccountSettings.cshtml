@@ -1,0 +1,63 @@
+﻿@model SavingOps.Models.AccountSettings
+
+<h1>Settings</h1>
+        <h4>Price Settings</h4>
+
+        <div class="price-settings d-flex justify-content-between">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AccountSettingsID" />
+            <div class="price-settings">
+            <div class="form-col">
+                <label asp-for="RentPrice" class="control-label"></label>
+                <input asp-for="RentPrice" class="form-control" />
+                <span asp-validation-for="RentPrice" class="text-danger"></span>
+            </div>
+            <div class="form-col">
+                <label asp-for="SavingsGoal" class="control-label"></label>
+                <input asp-for="SavingsGoal" class="form-control" />
+                <span asp-validation-for="SavingsGoal" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="form-group pt-3">
+                <input type="submit" value="Save" class="btn btn-primary p-3 fs-5" />
+            </div>
+        </form>
+        </div>       
+
+        <h4>Account Settings</h4>
+        <div class="price-settings">
+            <div class="form-col-acc">
+            <label>Email</label>
+            <input type="text" value="@User.Identity.Name">
+        </div>        
+        </div>
+
+        <h4 class="pb-5 pt-4">Storage Settings</h4>
+        <div class="set-row d-flex justify-content-between">
+            <div>
+                <form asp-controller="Savings" asp-action="Delete">
+                <input type="submit" value="Clear Saving Payments" class="btn btn-danger p-3"/> 
+            </form>
+            </div>
+
+            <div>
+                <form asp-controller="Rents" asp-action="Delete">
+                <input type="submit" value="Clear Rent Payments" class="btn btn-danger p-3" /> 
+            </form>
+            </div>
+
+            <div>
+                <form asp-controller="Fuels" asp-action="Delete">
+                <input type="submit" value="Clear Fuel Payments" class="btn btn-danger p-3" /> 
+            </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        

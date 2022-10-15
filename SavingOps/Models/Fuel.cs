@@ -7,6 +7,7 @@
         [Required]
         public DateTime FuelSubmitted { get; set; }
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.00}")]
         public double Cost { get; set; }
     }
 }

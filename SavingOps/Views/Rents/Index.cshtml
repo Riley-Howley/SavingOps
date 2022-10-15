@@ -1,41 +1,28 @@
-﻿@model IEnumerable<SavingOps.Models.Rent>
+﻿@model SavingOps.Models.Rent
 
-@{
-    ViewData["Title"] = "Index";
+<div class="savings-section">
+        <h1 class="display-4 fw-bold">Rent</h1>
+        <div class="d-flex justify-content-between align-content-center">
+            <p>Amount spent towards rent</p>
+            <a asp-controller="Home" asp-area="Index" class="display-5 fw-bold text-blue">Back to Home</a>
+        </div>
+
+    <form asp-action="Create">            
+            <div class="form-group">
+                <input type="submit" value="Pay Rent" class="btn btn-primary" />
+            </div>
+    </form>
+
+        <div id="partialZone">
+
+        </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('#partialZone').load("/Rents/RentListPartial")
+    </script>
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateSubmitted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateSubmitted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RentID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RentID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RentID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

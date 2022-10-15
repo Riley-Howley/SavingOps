@@ -16,8 +16,7 @@ namespace SavingOps.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            SignInManager<IdentityUser> SignInManager;
-
+            SignInManager<IdentityUser> SignInManager;          
             await _signInManager.SignOutAsync();
             return RedirectToAction("Dashboard","Home");
         }

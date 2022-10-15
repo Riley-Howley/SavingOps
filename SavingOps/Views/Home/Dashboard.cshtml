@@ -1,5 +1,4 @@
 ﻿@model SavingOps.Models.ListModel;
-
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -12,35 +11,64 @@
         </div>
     </div>
 </div>
-    <div class="dash-row d-flex justify-content-between mx-auto">
+    <div class="dash-row d-flex justify-content-between mx-auto flex-wrap">
         <a asp-controller="Savings" asp-action="Index">
             <div class="saving-con">
             <h2>Savings Goal</h2>
             <!--Circle Progress-->
                 @{
-                    if (Model.AccountList == null)
-                    {
+                    if (Model.AccountList.Count == 0)
+                    {   
                         <h2>Not Set</h2>
                     } else
                     {
-                        <h2>Set</h2>
+                        double save = 0;
+                        foreach (var item in Model.SavingList)
+                        {
+                            save += item.Cost;
+                        }
+                        double percent = (save / Model.AccountList[0].SavingsGoal) * 100;
+                        <h2>@string.Format("{0:0.00}", percent)%</h2>
+                        <h2>@save/@Model.AccountList[0].SavingsGoal</h2>
                     }
+
                 }
         </div>
         </a>
-        s
         <a asp-controller="Rents" asp-action="Index">
             <div class="saving-con">
             <h2>Rent Paid</h2>
-            <h2>$12,160</h2>
-            <p>Rent paid by $320.00 per week</p>
+                @{
+                    if(Model.AccountList.Count == 0)
+                    {
+                        <h2>Not Set</h2>
+                        <p>Not Set</p>
+                    } else
+                    {
+                        double rent = 0;
+                        foreach (var item in Model.RentList)
+                        {
+                            rent += item.Cost;
+                        }
+                        <h2>$@rent</h2>
+                        <p>Rent paid by $@Model.AccountList[0].RentPrice per week</p>
+                    }
+                }
+            
         </div>
         </a>
 
         <a asp-controller="Fuels" asp-action="Index">
             <div class="saving-con">
             <h2>Fuel Paid</h2>
-            <h2>$12,160</h2>
+                @{
+                    double count = 0;
+                    foreach (var item in Model.FuelList)
+                    {
+                        count += item.Cost;
+                    }
+                    <h2>$@count</h2>
+                }            
             <p>Amount spent towards fuel</p>
         </div>
         </a>
@@ -54,68 +82,42 @@
     <div class="nav-link middle-body" id="Home">
             <div class="graph-col d-flex flex-column mx-auto">
                 <div class="graph-title">
-                <p>Total amount spent on junk per month</p>
-                <h2>$1500</h2>
+                <p>Total amount spent Currently</p>
+                @{
+                    double cost = 0;
+                    foreach (var item in Model.RentList)
+                    {
+                        cost += item.Cost;
+                    }
+                    foreach (var item in Model.FuelList)
+                    {
+                        cost += item.Cost;
+                    }
+                    foreach (var item in Model.SavingList)
+                    {
+                        cost += item.Cost;
+                    }
+                    <h2>$@cost</h2>
+                }
             </div>
             <div class="graph">
-                <canvas id="myChart" style="width:90%;max-width:80%"></canvas>
+                @{
+
+                }
             </div>           
-            </div>     
-                <div class="trac-right">
-                    <div class="trac-right-row">
-                        <div class="trac-col">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h2>Bills</h2>
-                                <i class="fa-solid fa-plus fs-5"></i>
-                            </div>
-                            <p>Bills that have been received and awaiting payment</p>
-                        </div>                
-                    </div>
-                    <div class="bill-con">
-                        <table class="bill-table">
-                            <tr>
-                                <td>Internet Bill</td>
-                                <td>Received</td>
-                                <td>$99</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+        </div>     
     </div>
 
     <div class="nav-link settings"  id="Settings" style="display:none">
-        <h1>Settings</h1>
-        <h4>Price Settings</h4>
-
-        <div class="price-settings">
-            <div class="form-col">
-                <label>Rent Price</label>
-                <input type="text">
-            </div>
-            <div class="form-col">
-                <label>Savings Goal</label>
-                <input type="text">
-            </div>
-        </div>
-
-        <h4>Account Settings</h4>
-        <div class="price-settings">
-            <div class="form-col-acc">
-            <label>Email</label>
-            <input type="text">
-        </div>
-        <div class="form-col-acc">
-            <label>Password</label>
-            <input type="password">
-        </div>
-        </div>
-
-        <h4 class="pb-5">Storage Settings</h4>
-        <div class="set-row">
-            <button>Clear History</button>
-            <button>Clear Savings</button>
-            <button>Clear Bill</button>
-        </div>
+        @{
+            if (Model.AccountList.Count == 0)
+            {
+                <div class="zone" id="partialZoneTwo"></div>
+            } else
+            {
+                <div class="zone" id="partialZone"></div>
+            }
+        }
     </div>
 
     <div class="nav-link logout-section" id="Logout" style="display:none">
@@ -126,3 +128,12 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('#partialZone').load("/AccountSettings/AccountPartial")
+        $('#partialZoneTwo').load("/AccountSettings/AddAccountPartial");
+    </script>
+}

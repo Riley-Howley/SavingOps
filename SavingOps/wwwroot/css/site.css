@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    background-image: url(../assets/pattern.png);
+    background-repeat: repeat;
+    background-position: center;
 }
 
 .splash-screen {
@@ -121,16 +124,14 @@ body {
 
 .dashboard-section {
     width: 100vw;
-    height: 100%;
-    background-image: url(../assets/pattern.png);
-    background-repeat: repeat;
-    background-position: center;
+    height: 100%;    
 }
 
 .dash-head {
     display: flex;
     justify-content: space-between;
     padding: 0px 50px;
+    padding-right: 148px;
     padding-left: 148px;
     padding-top: 74px;
 }
@@ -160,6 +161,16 @@ a {
 
 .nav-link {
     color: black;
+}
+
+.fa-solid {
+    transition: all ease 0.3s;
+}
+
+.fa-solid:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: blue;
 }
 
 .nav-link:hover {
@@ -285,13 +296,14 @@ a {
 
 .price-settings {
     display: flex;
-    width: 40%;
+    width: 100%;
     justify-content: space-between;
 }
 
 .settings .form-col input {
     padding: 10px;
     font-size: 20px;
+    width: 60%;
 }
 
 .settings .form-col-acc input {
@@ -307,7 +319,7 @@ a {
 }
 
 .set-row {
-    width: 40%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding-bottom: 100px;
@@ -319,3 +331,39 @@ a {
         font-size: 20px;
         padding: 8px 18px;
     }
+
+/*Savings Section*/
+
+.savings-section {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../assets/pattern.png);
+    background-repeat: repeat;
+    background-position: center;
+    padding-left: 148px;
+    padding-right: 148px;
+    padding-top: 50px;
+}
+
+
+/*Partial Table*/
+
+.table tr:nth-child(even) {
+    background-color: #F3E1A2;
+}
+
+.table tr:hover {
+    background-color: white;
+}
+
+.table {
+    font-size: 34px;
+}
+
+.pull {
+    width: 20%;
+}
+
+.zone {
+    width: 40%;
+}

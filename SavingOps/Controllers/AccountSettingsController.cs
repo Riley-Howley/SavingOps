@@ -78,7 +78,7 @@ namespace SavingOps.Controllers
             {
                 return NotFound();
             }
-            return View(accountSettings);
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: AccountSettings/Edit/5
@@ -88,6 +88,7 @@ namespace SavingOps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccountSettingsID,RentPrice,SavingsGoal")] AccountSettings accountSettings)
         {
+            id = accountSettings.AccountSettingsID;
             if (id != accountSettings.AccountSettingsID)
             {
                 return NotFound();
@@ -111,9 +112,9 @@ namespace SavingOps.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Dashboard", "Home");
             }
-            return View(accountSettings);
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // GET: AccountSettings/Delete/5
@@ -156,6 +157,14 @@ namespace SavingOps.Controllers
         private bool AccountSettingsExists(int id)
         {
           return _context.AccountSettings.Any(e => e.AccountSettingsID == id);
+        }
+        public IActionResult AccountPartial()
+        {
+            return PartialView("_AccountSettings", _context.AccountSettings.First());
+        }
+        public IActionResult AddAccountPartial()
+        {
+            return PartialView("_AddAccountSettings");
         }
     }
 }

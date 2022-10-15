@@ -21,8 +21,8 @@ namespace SavingOps.Controllers
 
         // GET: Savings
         public async Task<IActionResult> Index()
-        {
-              return View(await _context.Saving.ToListAsync());
+        {            
+            return View();
         }
 
         // GET: Savings/Details/5
@@ -58,6 +58,7 @@ namespace SavingOps.Controllers
         {
             if (ModelState.IsValid)
             {
+                saving.DateSubmitted = DateTime.Now;
                 _context.Add(saving);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,21 +118,13 @@ namespace SavingOps.Controllers
         }
 
         // GET: Savings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete()
         {
-            if (id == null || _context.Saving == null)
-            {
-                return NotFound();
+            var model = _context.Saving;
+            foreach (var i in model) {
+                _context.Saving.Remove(i);
             }
-
-            var saving = await _context.Saving
-                .FirstOrDefaultAsync(m => m.SavingID == id);
-            if (saving == null)
-            {
-                return NotFound();
-            }
-
-            return View(saving);
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: Savings/Delete/5
@@ -139,23 +132,23 @@ namespace SavingOps.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Saving == null)
+            var model = _context.Saving;
+            foreach (var i in model)
             {
-                return Problem("Entity set 'ApplicationDbContext.Saving'  is null.");
+                _context.Saving.Remove(i);
             }
-            var saving = await _context.Saving.FindAsync(id);
-            if (saving != null)
-            {
-                _context.Saving.Remove(saving);
-            }
-            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Dashboard", "Home");
         }
 
         private bool SavingExists(int id)
         {
           return _context.Saving.Any(e => e.SavingID == id);
+        }
+
+        public IActionResult SavingListPartial()
+        {
+            return PartialView("_SavingsList", _context.Saving.ToList());
         }
     }
 }

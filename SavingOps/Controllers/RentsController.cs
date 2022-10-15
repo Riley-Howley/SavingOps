@@ -22,7 +22,7 @@ namespace SavingOps.Controllers
         // GET: Rents
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Rent.ToListAsync());
+              return View();
         }
 
         // GET: Rents/Details/5
@@ -58,6 +58,8 @@ namespace SavingOps.Controllers
         {
             if (ModelState.IsValid)
             {
+                rent.DateSubmitted = DateTime.Now;
+                rent.Cost = _context.AccountSettings.First().RentPrice;
                 _context.Add(rent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,45 +119,38 @@ namespace SavingOps.Controllers
         }
 
         // GET: Rents/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete()
         {
-            if (id == null || _context.Rent == null)
+            var model = _context.Rent;
+            foreach (var i in model)
             {
-                return NotFound();
+                _context.Rent.Remove(i);
             }
-
-            var rent = await _context.Rent
-                .FirstOrDefaultAsync(m => m.RentID == id);
-            if (rent == null)
-            {
-                return NotFound();
-            }
-
-            return View(rent);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: Rents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed()
         {
-            if (_context.Rent == null)
+            var model = _context.Rent;
+            foreach (var i in model)
             {
-                return Problem("Entity set 'ApplicationDbContext.Rent'  is null.");
+                _context.Rent.Remove(i);
             }
-            var rent = await _context.Rent.FindAsync(id);
-            if (rent != null)
-            {
-                _context.Rent.Remove(rent);
-            }
-            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Dashboard", "Home");
         }
 
         private bool RentExists(int id)
         {
           return _context.Rent.Any(e => e.RentID == id);
+        }
+        public IActionResult RentListPartial()
+        {
+            return PartialView("_RentList", _context.Rent.ToList());
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SavingOps.Models.Fuel>    
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelSubmitted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @{
+                        string[] date = item.FuelSubmitted.ToString().Split();
+                        @date[0]
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>            
+        </tr>
+}
+    </tbody>
+</table>

@@ -22,7 +22,7 @@ namespace SavingOps.Controllers
         // GET: Fuels
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Fuel.ToListAsync());
+              return View();
         }
 
         // GET: Fuels/Details/5
@@ -58,6 +58,7 @@ namespace SavingOps.Controllers
         {
             if (ModelState.IsValid)
             {
+                fuel.FuelSubmitted = DateTime.Now;
                 _context.Add(fuel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,45 +118,39 @@ namespace SavingOps.Controllers
         }
 
         // GET: Fuels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete()
         {
-            if (id == null || _context.Fuel == null)
+            var model = _context.Fuel;
+            foreach (var i in model)
             {
-                return NotFound();
+                _context.Fuel.Remove(i);
             }
-
-            var fuel = await _context.Fuel
-                .FirstOrDefaultAsync(m => m.FuelID == id);
-            if (fuel == null)
-            {
-                return NotFound();
-            }
-
-            return View(fuel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: Fuels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed()
         {
-            if (_context.Fuel == null)
+            var model = _context.Fuel;
+            foreach (var i in model)
             {
-                return Problem("Entity set 'ApplicationDbContext.Fuel'  is null.");
+                _context.Fuel.Remove(i);
             }
-            var fuel = await _context.Fuel.FindAsync(id);
-            if (fuel != null)
-            {
-                _context.Fuel.Remove(fuel);
-            }
-            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Dashboard", "Home");
         }
 
         private bool FuelExists(int id)
         {
           return _context.Fuel.Any(e => e.FuelID == id);
+        }
+
+        public IActionResult FuelListPartial()
+        {
+            return PartialView("_FuelList", _context.Fuel.ToList());
         }
     }
 }
