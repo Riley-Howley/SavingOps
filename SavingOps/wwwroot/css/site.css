@@ -367,3 +367,7 @@ a {
 .zone {
     width: 40%;
 }
+
+img {
+    border-radius: 100px;
+}
