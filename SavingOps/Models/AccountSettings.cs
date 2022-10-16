@@ -12,3 +12,4 @@
         public double SavingsGoal { get; set; }
     }
 }
+ 
