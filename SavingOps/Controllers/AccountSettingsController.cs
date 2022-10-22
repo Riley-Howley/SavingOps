@@ -24,7 +24,7 @@ namespace SavingOps.Controllers
         // GET: AccountSettings
         public async Task<IActionResult> Index()
         {
-              return View(await _context.AccountSettings.ToListAsync());
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // GET: AccountSettings/Details/5
@@ -48,7 +48,7 @@ namespace SavingOps.Controllers
         // GET: AccountSettings/Create
         public IActionResult Create()
         {
-            return View();
+            return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: AccountSettings/Create
